@@ -39,19 +39,28 @@ function App() {
   useEffect(() => {
     const jwt = localStorage.getItem('jwt');
     if (jwt) {
-      auth.getContent(jwt).then((res) => {
-        const userDate = { username: res.username, email: res.email };
-        setIsLoggedIn(true);
-        setUserData(userData);
-      });
+      auth
+        .getContent(jwt)
+        .then((res) => {
+          const userData = { username: res.username, email: res.email };
+          setIsLoggedIn(true);
+          setUserData(userData);
+        })
+        .then(() => {
+          api.getCardsList().then((initialCards) => {
+            setCards(initialCards);
+          });
+        })
+        .then(() => {
+          api.getUserInfo().then((data) => {
+            setCurrentUser(data);
+          });
+        })
+        .then(() => {
+          history.push('/');
+        })
+        .catch((err) => console.log(err));
     }
-
-    api.getCardsList().then((initialCards) => {
-      setCards(initialCards);
-    });
-    api.getUserInfo().then((data) => {
-      setCurrentUser(data);
-    });
 
     const handleEscClose = (evt) => {
       if (evt.keyCode === 27) {
