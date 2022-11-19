@@ -3,6 +3,10 @@
   border-bottom: 1px solid #545454;
   max-width: 880px;
   width: 100%;
+  display: flex;
+  margin: 0;
+  justify-content: space-between;
+  align-items: center;
 }
 
 @media screen and (max-width: 1040px) {

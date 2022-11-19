@@ -6,7 +6,11 @@ import Footer from './Footer';
 function Register(props) {
   return (
     <main className="main">
-      <Header />
+      <Header>
+        <Link to="./signin" className="header__link">
+          Entrar
+        </Link>
+      </Header>
       <h2 className="form__title">Inscrever-se</h2>
       <form className="form">
         <input

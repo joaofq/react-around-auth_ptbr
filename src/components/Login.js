@@ -6,7 +6,11 @@ import Footer from './Footer';
 function Login(props) {
   return (
     <main className="main">
-      <Header />
+      <Header>
+        <Link to="./signup" className="header__link">
+          Criar conta
+        </Link>
+      </Header>
       <h2 className="form__title">Entrar </h2>
       <form className="form">
         <input
