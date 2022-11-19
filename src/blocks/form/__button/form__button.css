@@ -1,4 +1,4 @@
-.register__form_button {
+.form__button {
   margin-top: 200px;
   padding: 14px 84px;
   background-color: white;
@@ -11,12 +11,12 @@
   text-align: center;
 }
 
-.register__form_button:hover {
+.form__button:hover {
   opacity: 85%;
 }
 
 @media screen and (max-width: 640px) {
-  .register__form_button {
+  .form__button {
     margin-top: 173px;
   }
 }
