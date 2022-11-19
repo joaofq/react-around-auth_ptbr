@@ -4,6 +4,22 @@ import Header from './Header';
 import Footer from './Footer';
 
 function Register(props) {
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+
+  function handleEmailChange(e) {
+    setEmail(e.target.value);
+  }
+
+  function handlePasswordChange(e) {
+    setPassword(e.target.value);
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    props.handleSignup(email, password);
+  }
+
   return (
     <main className="main">
       <Header>
@@ -12,12 +28,13 @@ function Register(props) {
         </Link>
       </Header>
       <h2 className="form__title">Inscrever-se</h2>
-      <form className="form">
+      <form className="form" onSubmit={handleSubmit}>
         <input
           className="form__input"
           type="email"
           placeholder="E-mail"
           required
+          onChange={handleEmailChange}
         />
         <span className="form__error"></span>
         <input
@@ -26,9 +43,10 @@ function Register(props) {
           placeholder="Password"
           required
           minLength="8"
+          onChange={handlePasswordChange}
         />
         <span className="form__error"></span>
-        <button className="form__button" type="submit">
+        <button className="form__button" type="submit" onSubmit={handleSubmit}>
           Inscrever-se
         </button>
         <Link to="/signin" className="form__link">
