@@ -42,7 +42,10 @@ function App() {
       auth
         .getContent(jwt)
         .then((res) => {
-          const userData = { username: res.username, email: res.email };
+          const userData = {
+            id: res.data._id,
+            email: res.data.email,
+          };
           setIsLoggedIn(true);
           setUserData(userData);
         })
@@ -211,7 +214,7 @@ function App() {
           <CurrentUserContext.Provider value={currentUser}>
             <Header>
               <div className="header__info">
-                <p className="header__note">{userData.email}alalal@lalla.com</p>
+                <p className="header__note">{userData.email}</p>
                 <a
                   className="header__link header__link-logout"
                   onClick={handleSignOut}
