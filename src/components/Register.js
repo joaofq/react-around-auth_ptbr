@@ -7,7 +7,7 @@ function Register(props) {
   return (
     <main className="main">
       <Header>
-        <Link to="./signin" className="header__link">
+        <Link to="/signin" className="header__link">
           Entrar
         </Link>
       </Header>
@@ -28,10 +28,10 @@ function Register(props) {
           minLength="8"
         />
         <span className="form__error"></span>
-        <button className="form__button" type="submit" aria-labe="Sign Up">
-          Sign up
+        <button className="form__button" type="submit">
+          Inscrever-se
         </button>
-        <Link exact to="/signin" className="form__link">
+        <Link to="/signin" className="form__link">
           Já é um membro? Faça o login aqui!{' '}
         </Link>
       </form>

@@ -12,8 +12,16 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import AddPlacePopup from './AddPlacePopup';
 import DeletePopup from './DeletePopup';
 import { Route, Switch, useHistory } from 'react-router-dom';
+import InfoTooltip from './InfoTooltip.js';
+import * as auth from '../utils/auth';
+import ProtectedRoute from './ProtectedRoute.js';
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  const [isSuccessful, setIsSuccessful] = React.useState(false);
+  const [isInfoTooltipPopupOpen, setIsInfoTooltipPopupOpen] =
+    React.useState(false);
+  const [userData, setUserData] = React.useState({});
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] =
     React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
@@ -26,18 +34,31 @@ function App() {
   const [currentUser, setCurrentUser] = React.useState({});
   const [cards, setCards] = React.useState([]);
 
+  const history = useHistory();
+
   useEffect(() => {
+    const jwt = localStorage.getItem('jwt');
+    if (jwt) {
+      auth.getContent(jwt).then((res) => {
+        const userDate = { username: res.username, email: res.email };
+        setIsLoggedIn(true);
+        setUserData(userData);
+      });
+    }
+
     api.getCardsList().then((initialCards) => {
       setCards(initialCards);
     });
     api.getUserInfo().then((data) => {
       setCurrentUser(data);
     });
+
     const handleEscClose = (evt) => {
       if (evt.keyCode === 27) {
         closeAllPopups();
       }
     };
+
     const handleClickOutside = (evt) => {
       if (
         !evt.target.closest('.popup__container') &&
@@ -50,6 +71,58 @@ function App() {
     document.addEventListener('click', handleClickOutside);
     document.addEventListener('keydown', handleEscClose);
   }, []);
+
+  function handleSignup(email, password) {
+    auth
+      .register(email, password)
+      .then((res) => {
+        if (!res || res.status === 400) {
+          setIsInfoTooltipPopupOpen(true);
+          throw new Error('Algo deu errado.');
+        } else {
+          setIsSuccessful(true);
+          setIsInfoTooltipPopupOpen(true);
+          history.push('/signin');
+        }
+        return res;
+      })
+      .catch((err) => console.log(err));
+  }
+
+  function handleLogin(email, password) {
+    if (!email || !password) {
+      return;
+    }
+    auth
+      .authorize(email, password)
+      .then((data) => {
+        if (!data) {
+          throw new Error('Algo deu errado.');
+        }
+      })
+      .then(() => {
+        api.getCardsList().then((res) => {
+          setCards(res);
+        });
+      })
+      .then(() => {
+        api.getUserInfo().then((res) => {
+          setCurrentUser(res);
+        });
+      })
+      .then(() => {
+        setIsLoggedIn(true);
+        setUserData(userData);
+        history.push('/');
+      })
+      .catch((err) => console.log(err));
+  }
+
+  function handleSignOut() {
+    localStorage.removeItem('jwt');
+    setIsLoggedIn(false);
+    history.push('/signin');
+  }
 
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(true);
@@ -120,14 +193,24 @@ function App() {
     <div className="page">
       <Switch>
         <Route path="/signin">
-          <Login />
+          <Login handleLogin={handleLogin} />
         </Route>
         <Route path="/signup">
-          <Register />
+          <Register handleSignup={handleSignup} />
         </Route>
-        <Route path="/">
+        <ProtectedRoute path="/" isLoggedIn={isLoggedIn}>
           <CurrentUserContext.Provider value={currentUser}>
-            <Header />
+            <Header>
+              <div className="header__info">
+                <p className="header__note">{userData.email}alalal@lalla.com</p>
+                <a
+                  className="header__link header__link-logout"
+                  onClick={handleSignOut}
+                >
+                  Sair
+                </a>
+              </div>
+            </Header>
             <Main
               onEditProfileClick={handleEditProfileClick}
               onAddPlaceClick={handleAddPlaceClick}
@@ -165,7 +248,12 @@ function App() {
               onDeleteSubmit={handleCardDelete}
             />
           </CurrentUserContext.Provider>
-        </Route>
+        </ProtectedRoute>
+        <InfoTooltip
+          valid={isSuccessful}
+          isOpen={isInfoTooltipPopupOpen}
+          onClose={closeAllPopups}
+        />
       </Switch>
     </div>
   );
