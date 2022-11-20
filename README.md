@@ -2,9 +2,9 @@
 
 ### Visão geral
 
-Este é um projeto de uma página, elaborado durante o curso de desenvolvimento web Practicum by Yandex.
+Este é um projeto desenvolvido durante o curso de desenvolvimento web Practicum by Yandex - Projeto 14.
 
-O Projeto consiste em refatorar o projeto desenvolvido em JS puro utilizando REACT.
+O Projeto consiste em implementar registro e autenticação de usuários para acesso ao aplicativo.
 
 **Tecnologias Utilizadas**
 
@@ -20,4 +20,4 @@ O Projeto consiste em refatorar o projeto desenvolvido em JS puro utilizando REA
 
 * [Link para o projeto no Figma - Sprint 9](https://www.figma.com/file/lEGbFrRr3ft9xIfxp1RFSz/WEB-Sprint-9)
 
-* [Link para visualização do projeto](https://joaofq.github.io/around-react)
+* [Link para visualização do projeto](https://joaofq.github.io/react-around-auth_ptbr)
