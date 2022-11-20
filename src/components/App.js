@@ -88,17 +88,15 @@ function App() {
     auth
       .register(email, password)
       .then((res) => {
-        if (!res || res.status === 400) {
-          setIsInfoTooltipPopupOpen(true);
-          throw new Error('Algo deu errado.');
-        } else {
-          setIsSuccessful(true);
-          setIsInfoTooltipPopupOpen(true);
-          history.push('/signin');
-        }
-        return res;
+        setIsSuccessful(true);
+        setIsInfoTooltipPopupOpen(true);
+        history.push('/');
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setIsSuccessful(false);
+        setIsInfoTooltipPopupOpen(true);
+        console.log('Algo deu errado: ' + err);
+      });
   }
 
   function handleLogin(email, password) {
@@ -124,7 +122,7 @@ function App() {
       })
       .then(() => {
         setIsLoggedIn(true);
-        setUserData(userData);
+        userData.email = email;
         history.push('/');
       })
       .catch((err) => console.log(err));
@@ -132,6 +130,7 @@ function App() {
 
   function handleSignOut() {
     localStorage.removeItem('jwt');
+    setUserData({});
     setIsLoggedIn(false);
     history.push('/signin');
   }
@@ -194,6 +193,7 @@ function App() {
   }
 
   function closeAllPopups() {
+    setIsInfoTooltipPopupOpen(false);
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
@@ -202,16 +202,16 @@ function App() {
   }
 
   return (
-    <div className="page">
-      <Switch>
-        <Route path="/signin">
-          <Login handleLogin={handleLogin} />
-        </Route>
-        <Route path="/signup">
-          <Register handleSignup={handleSignup} />
-        </Route>
-        <ProtectedRoute path="/" isLoggedIn={isLoggedIn}>
-          <CurrentUserContext.Provider value={currentUser}>
+    <CurrentUserContext.Provider value={currentUser}>
+      <div className="page">
+        <Switch>
+          <Route path="/signin">
+            <Login handleLogin={handleLogin} />
+          </Route>
+          <Route path="/signup">
+            <Register handleSignup={handleSignup} />
+          </Route>
+          <ProtectedRoute path="/" isLoggedIn={isLoggedIn}>
             <Header>
               <div className="header__info">
                 <p className="header__note">{userData.email}</p>
@@ -259,15 +259,15 @@ function App() {
               onClose={closeAllPopups}
               onDeleteSubmit={handleCardDelete}
             />
-          </CurrentUserContext.Provider>
-        </ProtectedRoute>
+          </ProtectedRoute>
+        </Switch>
         <InfoTooltip
           valid={isSuccessful}
           isOpen={isInfoTooltipPopupOpen}
           onClose={closeAllPopups}
         />
-      </Switch>
-    </div>
+      </div>
+    </CurrentUserContext.Provider>
   );
 }
 

@@ -1,9 +1,10 @@
 juca@fruta.com.br
 12345678
 
+tedlasso@prime.com
+12345678
 
 Falta Implementar: 
 
-- Puchar e-mail do usuário na tela lá em cima
-
 - Poupups de sucesso do Login.
+
