@@ -4,6 +4,9 @@ juca@fruta.com.br
 tedlasso@prime.com
 12345678
 
+jfpq@ig.com.br
+12345678
+
 Falta Implementar: 
 
 - Poupups de sucesso do Login.
