@@ -1,10 +1,9 @@
-import React, { useEffect } from "react";
-import edit from "../images/edit.svg";
-import add from "../images/add.svg";
-import Card from "../components/Card";
-import { api } from "../utils/api";
+import React, { useEffect } from 'react';
+import edit from '../images/edit.svg';
+import add from '../images/add.svg';
+import Card from '../components/Card';
 
-import { CurrentUserContext } from "../contexts/CurrentUserContext";
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 function Main(props) {
   const currentUser = React.useContext(CurrentUserContext);

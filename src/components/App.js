@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Login from './Login.js';
 import Register from './Register';
 import Header from './Header';
@@ -17,22 +17,18 @@ import * as auth from '../utils/auth';
 import ProtectedRoute from './ProtectedRoute.js';
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
-  const [isSuccessful, setIsSuccessful] = React.useState(false);
-  const [isInfoTooltipPopupOpen, setIsInfoTooltipPopupOpen] =
-    React.useState(false);
-  const [userData, setUserData] = React.useState({});
-  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] =
-    React.useState(false);
-  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
-  const [isDeleteCardPopupOpen, setIsDeleteCardPopupOpen] =
-    React.useState(false);
-  const [isImagePopupOpen, setIsImagePopupOpen] = React.useState(false);
-  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] =
-    React.useState(false);
-  const [selectedCard, setSelectedCard] = React.useState({});
-  const [currentUser, setCurrentUser] = React.useState({});
-  const [cards, setCards] = React.useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isSuccessful, setIsSuccessful] = useState(false);
+  const [isInfoTooltipPopupOpen, setIsInfoTooltipPopupOpen] = useState(false);
+  const [userData, setUserData] = useState({});
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
+  const [isDeleteCardPopupOpen, setIsDeleteCardPopupOpen] = useState(false);
+  const [isImagePopupOpen, setIsImagePopupOpen] = useState(false);
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
+  const [selectedCard, setSelectedCard] = useState({});
+  const [currentUser, setCurrentUser] = useState({});
+  const [cards, setCards] = useState([]);
 
   const history = useHistory();
 
@@ -99,6 +95,39 @@ function App() {
       });
   }
 
+  // function handleLogin(email, password) {
+  //   if (!email || !password) {
+  //     return;
+  //   }
+  //   auth
+  //     .authorize(email, password)
+  //     .then((data) => {
+  //       if (!data) {
+  //         throw new Error('Algo deu errado.');
+  //       }
+  //     })
+  //     .then(() => {
+  //       api.getCardsList().then((res) => {
+  //         setCards(res);
+  //       });
+  //     })
+  //     .then(() => {
+  //       api.getUserInfo().then((res) => {
+  //         setCurrentUser(res);
+  //       });
+  //     })
+  //     .then(() => {
+  //       setIsLoggedIn(true);
+  //       userData.email = email;
+  //       history.push('/');
+  //     })
+  //     .catch((err) => {
+  //       setIsSuccessful(false);
+  //       setIsInfoTooltipPopupOpen(true);
+  //       console.log(err);
+  //     });
+  // }
+
   function handleLogin(email, password) {
     if (!email || !password) {
       return;
@@ -114,18 +143,18 @@ function App() {
         api.getCardsList().then((res) => {
           setCards(res);
         });
-      })
-      .then(() => {
         api.getUserInfo().then((res) => {
           setCurrentUser(res);
         });
-      })
-      .then(() => {
         setIsLoggedIn(true);
         userData.email = email;
         history.push('/');
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setIsSuccessful(false);
+        setIsInfoTooltipPopupOpen(true);
+        console.log(err);
+      });
   }
 
   function handleSignOut() {
