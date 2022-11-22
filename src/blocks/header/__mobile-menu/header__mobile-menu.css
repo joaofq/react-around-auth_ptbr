@@ -1,0 +1,35 @@
+.header__mobile-menu {
+  display: none;
+}
+
+@media (max-width: 700px) {
+  .header__mobile-menu {
+    display: block;
+    background: black;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    margin: 10px;
+  }
+
+  .header__mobile-menu::before {
+    content: '';
+    display: inline-block;
+    height: 2px;
+    width: 12px;
+    background: white;
+    box-shadow: 0 4px white, 0 -4px white;
+    color: white;
+  }
+
+  .header {
+    flex-wrap: wrap;
+  }
+
+  .header__info {
+  }
+}

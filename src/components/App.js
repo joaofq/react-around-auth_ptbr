@@ -221,6 +221,8 @@ function App() {
     });
   }
 
+  function handleMobileMenu() {}
+
   function closeAllPopups() {
     setIsInfoTooltipPopupOpen(false);
     setIsEditAvatarPopupOpen(false);
@@ -242,6 +244,7 @@ function App() {
           </Route>
           <ProtectedRoute path="/" isLoggedIn={isLoggedIn}>
             <Header>
+              <button className="header__mobile-menu"></button>
               <div className="header__info">
                 <p className="header__note">{userData.email}</p>
                 <a
