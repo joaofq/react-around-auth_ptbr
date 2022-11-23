@@ -14,6 +14,7 @@
     color: white;
     cursor: pointer;
     margin: 10px;
+    font-size: 25px;
   }
 
   .header__mobile-menu::before {
@@ -25,6 +26,10 @@
     box-shadow: 0 6px white, 0 -6px white;
     font-size: 22px;
     color: white;
+  }
+
+  .no-before::before {
+    display: none;
   }
 
   .header__info {

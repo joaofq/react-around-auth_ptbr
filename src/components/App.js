@@ -225,12 +225,14 @@ function App() {
   const menuButton = React.useRef();
 
   function handleMobileMenu() {
-    if (headerInfo.current.style.display === 'none') {
-      headerInfo.current.style.display = 'block';
-      menuButton.current.innerText = 'X';
-    } else {
+    if (headerInfo.current.style.display === 'block') {
       headerInfo.current.style.display = 'none';
       menuButton.current.innerText = '';
+      menuButton.current.classList.remove('no-before');
+    } else {
+      headerInfo.current.style.display = 'block';
+      menuButton.current.classList.add('no-before');
+      menuButton.current.innerText = 'X';
     }
   }
 
