@@ -95,39 +95,6 @@ function App() {
       });
   }
 
-  // function handleLogin(email, password) {
-  //   if (!email || !password) {
-  //     return;
-  //   }
-  //   auth
-  //     .authorize(email, password)
-  //     .then((data) => {
-  //       if (!data) {
-  //         throw new Error('Algo deu errado.');
-  //       }
-  //     })
-  //     .then(() => {
-  //       api.getCardsList().then((res) => {
-  //         setCards(res);
-  //       });
-  //     })
-  //     .then(() => {
-  //       api.getUserInfo().then((res) => {
-  //         setCurrentUser(res);
-  //       });
-  //     })
-  //     .then(() => {
-  //       setIsLoggedIn(true);
-  //       userData.email = email;
-  //       history.push('/');
-  //     })
-  //     .catch((err) => {
-  //       setIsSuccessful(false);
-  //       setIsInfoTooltipPopupOpen(true);
-  //       console.log(err);
-  //     });
-  // }
-
   function handleLogin(email, password) {
     if (!email || !password) {
       return;
