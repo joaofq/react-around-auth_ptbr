@@ -19,17 +19,22 @@
   .header__mobile-menu::before {
     content: '';
     display: inline-block;
-    height: 2px;
-    width: 12px;
+    height: 3px;
+    width: 20px;
     background: white;
-    box-shadow: 0 4px white, 0 -4px white;
+    box-shadow: 0 6px white, 0 -6px white;
+    font-size: 22px;
     color: white;
   }
 
-  .header {
-    flex-wrap: wrap;
+  .header__info {
+    display: none;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 46px;
   }
 
-  .header__info {
+  .header__note {
+    margin-bottom: 10px;
   }
 }

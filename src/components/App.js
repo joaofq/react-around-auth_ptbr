@@ -221,7 +221,18 @@ function App() {
     });
   }
 
-  function handleMobileMenu() {}
+  const headerInfo = React.useRef();
+  const menuButton = React.useRef();
+
+  function handleMobileMenu() {
+    if (headerInfo.current.style.display === 'none') {
+      headerInfo.current.style.display = 'block';
+      menuButton.current.innerText = 'X';
+    } else {
+      headerInfo.current.style.display = 'none';
+      menuButton.current.innerText = '';
+    }
+  }
 
   function closeAllPopups() {
     setIsInfoTooltipPopupOpen(false);
@@ -244,8 +255,12 @@ function App() {
           </Route>
           <ProtectedRoute path="/" isLoggedIn={isLoggedIn}>
             <Header>
-              <button className="header__mobile-menu"></button>
-              <div className="header__info">
+              <button
+                className="header__mobile-menu"
+                onClick={handleMobileMenu}
+                ref={menuButton}
+              ></button>
+              <div className="header__info" ref={headerInfo}>
                 <p className="header__note">{userData.email}</p>
                 <a
                   className="header__link header__link-logout"
