@@ -18,6 +18,10 @@ O Projeto consiste em implementar registro e autenticação de usuários para ac
 - Webpack
 - Babel
 
-* [Link para o projeto no Figma - Sprint 9](https://www.figma.com/file/lEGbFrRr3ft9xIfxp1RFSz/WEB-Sprint-9)
+##Melhorias
 
-* [Link para visualização do projeto](https://joaofq.github.io/react-around-auth_ptbr)
+O Projeto está em fase de implantação em servidor próprio, acoplando com o back-end, razão pela qual o GitHubPages não estará funcionando temporiariamente.
+
+- [Link para o projeto no Figma - Sprint 9](https://www.figma.com/file/lEGbFrRr3ft9xIfxp1RFSz/WEB-Sprint-9)
+
+- [Link para visualização do projeto](joaofq.students.nomoredomainssbs.ru)
